@@ -1,0 +1,39 @@
+{
+  "name": "browserstack-demo-web-bdd",
+  "version": "1.0.0",
+  "description": "Web tests with Cypress + BDD + Allure",
+  "type": "module",
+  "scripts": {
+    "test": "cypress run --spec 'cypress/e2e/cenarios-web-final.cy.js'",
+    "test-com-spec": "cypress run --spec 'cypress/e2e/cenarios-web-com-spec.cy.js'",
+    "test-unificado": "cypress run --spec 'cypress/e2e/cenarios-web-unificado.cy.js'",
+    "test-individual": "cypress run --spec 'cypress/e2e/cenarios-web.cy.js'",
+    "test-sequencial": "cypress run --spec 'cypress/e2e/cenarios-web-sequencial.cy.js'",
+    "test:all": "cypress run --e2e",
+    "open": "cypress open --e2e",
+    "allure:serve": "allure serve allure-results || npx allure serve allure-results"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^19.1.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "cypress": "^13.7.0",
+    "esbuild": "^0.21.5"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/e2e/steps/**/*.{js,ts}"
+    ],
+    "messages": {
+      "enabled": true
+    },
+    "json": {
+      "enabled": true,
+      "output": "cypress/reports/cucumber-report.json"
+    },
+    "html": {
+      "enabled": true,
+      "output": "cypress/reports/cucumber-report.html"
+    }
+  }
+}

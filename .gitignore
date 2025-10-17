@@ -1,0 +1,16 @@
+
+node_modules/
+.npm/
+allure-results/
+allure-report/
+.target/
+target/
+surefire-reports/
+cypress/screenshots/
+cypress/videos/
+.allure/
+.env
+*.local
+.DS_Store
+.idea/
+.vscode/
