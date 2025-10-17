@@ -3,7 +3,24 @@
 
 Suíte completa de automação de testes **MOBILE** (Java + Appium) + **WEB** (Cypress) com Page Objects e BDD.
 
-## 📱 **Aplicações Testadas**
+## � **Instalação Rápida**
+
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/danilopuh/automacaomobile.git
+cd automacaomobile
+
+# 2. Instalar dependências de ambos os projetos
+npm install
+
+# 3. Executar testes web
+npm run test:web
+
+# 4. Executar testes mobile
+npm run test:mobile
+```
+
+## �📱 **Aplicações Testadas**
 - **Mobile:** `com.swaglabsmobileapp` (Sauce Labs Demo App)
 - **APK:** `app/browserstack-demo-app.apk` (25.7 MB) 
 - **Web:** https://www.saucedemo.com

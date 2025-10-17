@@ -1,7 +1,6 @@
 {
-  "dependencies": {
-    "-": "^0.0.1",
-    "appium": "^3.1.0",
-    "g": "^2.0.1"
-  }
+  "name": "mobile-java-automation",
+  "version": "1.0.0",
+  "description": "Mobile automation tests with Appium and Java",
+  "license": "ISC"
 }

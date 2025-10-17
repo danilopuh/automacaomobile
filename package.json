@@ -1,0 +1,44 @@
+{
+  "name": "automacaomobile",
+  "version": "1.0.0",
+  "description": "Projeto de automação mobile e web com Appium, Cypress e BDD",
+  "main": "index.js",
+  "scripts": {
+    "install:web": "cd web && npm install",
+    "install:all": "npm run install:web",
+    "test:web": "cd web && npm test",
+    "test:web:open": "cd web && npm run open", 
+    "test:mobile": "cd mobile-java && mvn test",
+    "test:all": "npm run test:web && npm run test:mobile",
+    "allure:web": "cd web && npm run allure:serve",
+    "prebuild": "npm run install:all",
+    "build": "echo 'Build completed for both projects'",
+    "start": "echo 'Use npm run test:web:open to open Cypress or npm run test:mobile for mobile tests'"
+  },
+
+  "keywords": [
+    "automation",
+    "testing",
+    "mobile",
+    "web",
+    "cypress",
+    "appium",
+    "bdd",
+    "java",
+    "javascript"
+  ],
+  "author": "Automation Team",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danilopuh/automacaomobile.git"
+  }
+}

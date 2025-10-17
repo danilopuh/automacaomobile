@@ -1,12 +1,12 @@
-# This is a basic workflow to help you get started with Actions
+# Workflow de CI/CD para Automação Mobile e Web
 
-name: CI
+name: CI/CD - Mobile & Web Automation
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Triggers the workflow on push or pull request events
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/*" ]
   pull_request:
     branches: [ "main" ]
 
@@ -15,22 +15,69 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  # Job para testes web com Cypress
+  web-tests:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install root dependencies
+        run: npm install
+      
+      - name: Install Web dependencies
+        run: cd web && npm install
+      
+      - name: Run Web Tests
+        run: cd web && npm test
+      
+      - name: Upload Web Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-test-results
+          path: web/allure-results
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+  # Job para testes mobile com Maven/Java
+  mobile-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      
+      - name: Setup Node.js (for tools)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install Appium globally (if needed)
+        run: npm install -g appium@latest || echo "Appium installation skipped"
+      
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      
+      - name: Run Mobile Tests
+        run: cd mobile-java && mvn test -Dtest=ValidationTest
+      
+      - name: Upload Mobile Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-test-results
+          path: mobile-java/target/surefire-reports
