@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'web/package-lock.json'
       
       - name: Install root dependencies
         run: npm install
@@ -58,13 +57,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       
-      - name: Setup Node.js for Mobile dependencies
+      - name: Setup Node.js (for tools)
         uses: actions/setup-node@v4
         with:
           node-version: '18'
       
-      - name: Install Mobile Node dependencies
-        run: cd mobile-java && npm install
+      - name: Install Appium globally (if needed)
+        run: npm install -g appium@latest || echo "Appium installation skipped"
       
       - name: Cache Maven dependencies
         uses: actions/cache@v3
